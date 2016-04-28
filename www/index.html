@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+    <script src="http://84.88.145.229:8080/target/target-script-min.js#anonymous"></script>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/ionicons.min.css" />
+        <script type="text/javascript" src="js/cordova.js"></script>
+        <script type="text/javascript" src="js/fastclick.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="SocialSharing.js"></script>
+        </body>
+        <title>Test Social Sharing</title>
+    </head>
+    <body>
+        <div class="header">
+            <div onclick="ups()" class="buttonHeader buttonLeft ion-navicon"></div>
+            Test Social Sharing
+            <div onclick="openOptions()" class="buttonHeader buttonRight ion-share"></div>
+        </div>
+        <div id="containerShare" class="bottomContent transition">
+            <div id="contentShare">
+                <div onclick="share('Twitter')" class="buttonShare buttonFacebook">Twitter</div>
+                <div onclick="share('Facebook')" class="buttonShare buttonTwitter">Facebook</div>
+                <div onclick="share('WhatsApp')" class="buttonShare buttonWhatsApp">WhatsApp</div>
+                <div onclick="closeOptions()" class="buttonShare buttonCancel">Cancelar</div>
+            </div>
+        </div>
+        <div>
+            <div style="color: white; margin: 25px 25px 25px 0px">
+                test.aa8sad
+            </div>
+            <button onclick="test()">message only</button>
+            <button onclick="window.plugins.socialsharing.shareViaFacebook(three, null, null, function() {console.log('share ok');}, function(errormsg){alert(errormsg);})">Facebook</button>
+            <button class="buttonShare buttonTwitter" onclick="window.plugins.socialsharing.shareViaTwitter('Message via Twitter')">message via Twitter</button>
+            <button class="buttonShare buttonTwitter" onclick="window.plugins.socialsharing.shareViaTwitter('Message and link via Twitter', null /* img */, 'http://www.x-services.nl')">msg and link via Twitter</button>
+        </div>
+</html>
+
+<script>
+
+    var test = function () {
+        console.log("testing testing");
+        window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+    }
+
+    // this is the complete list of currently supported params you can pass to the plugin (all optional)
+    var options = {
+        message: 'share this', // not supported on some apps (Facebook, Instagram)
+        subject: 'the subject', // fi. for email
+        files: ['', ''], // an array of filenames either locally or remotely
+        url: 'https://www.google.es',
+        chooserTitle: 'Pick an app' // Android only, you can override the default share sheet title
+    }
+
+    var onSuccess = function(result) {
+        console.log("Share completed? " + result.completed); // On Android apps mostly return false even while it's true
+        console.log("Shared to app: " + result.app); // On Android result.app is currently empty. On iOS it's empty when sharing is cancelled (result.completed=false)
+    }
+
+    var onError = function(msg) {
+        console.log("Sharing failed with message: " + msg);
+    }
+
+    window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+
+
+</script>
