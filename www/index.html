@@ -14,6 +14,7 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/fastclick.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/SocialSharing.js"></script>
         <title>Test Social Sharing</title>
     </head>
     <body>
@@ -34,10 +35,8 @@
             <div style="color: white; margin: 25px 25px 25px 0px">
                 test.aa8sad
             </div>
-            <button onclick="test()">message only</button>
-            <button onclick="window.plugins.socialsharing.shareViaFacebook(three, null, null, function() {console.log('share ok');}, function(errormsg){alert(errormsg);})">Facebook</button>
-            <button class="buttonShare buttonTwitter" onclick="window.plugins.socialsharing.shareViaTwitter('Message via Twitter')">message via Twitter</button>
-            <button class="buttonShare buttonTwitter" onclick="window.plugins.socialsharing.shareViaTwitter('Message and link via Twitter', null /* img */, 'http://www.x-services.nl')">msg and link via Twitter</button>
+            <button id="test">message only</button>
+            <button id="fb">Facebook</button>
         </div>
     </body>
 </html>
@@ -45,8 +44,8 @@
 <script>
 
     var test = function () {
-        console.log("testing testing");
-        window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+        alert("testing testing");
+     //   window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
     }
 
     // this is the complete list of currently supported params you can pass to the plugin (all optional)
@@ -66,7 +65,14 @@
     var onError = function(msg) {
         console.log("Sharing failed with message: " + msg);
     }
-    document.addEventListener("deviceready", window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError), false);
+
+
+    document.addEventListener("deviceready", function() {
+        alert("device is ready, calling socialsharing");
+        alert("plugins object: " + window.plugins);
+        alert("plugins object: " + window.plugins.socialsharing);
+        window.plugins.socialsharing.shareWithOptions(options, onSuccess, onError);
+    }, false);
 
 
 
